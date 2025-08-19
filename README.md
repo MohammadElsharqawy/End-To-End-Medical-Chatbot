@@ -144,7 +144,7 @@ sudo usermod -aG docker ubuntu
 newgrp docker
 ```
 
-### open the required port -(inpounf rules) ex. 8080- in youe EC2 instance'
+### open the required port -(inbound rules) ex. 8080- in your EC2 instance'
 
 ### 6. Configure EC2 as self-hosted runner in github:
 
