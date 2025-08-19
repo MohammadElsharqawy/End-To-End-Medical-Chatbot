@@ -7,8 +7,6 @@ on:
 jobs:
   Continuous-Integration:
     runs-on: ubuntu-latest
-    outputs:
-      image: ${{ steps.build-image.outputs.image }}
 
     steps:
       - name: Checkout
@@ -35,7 +33,7 @@ jobs:
           echo "Using build number: $IMAGE_TAG"
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
 
   Continuous-Deployment:
     needs: Continuous-Integration
@@ -74,4 +72,4 @@ jobs:
           -e OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}" \
           -p 8080:8080 \
           --name chatbot-api \
-          "${{ needs.Continuous-Integration.outputs.image }}"
+          "${{ steps.login-ecr.outputs.registry }}"/"${{ secrets.ECR_REPO }}":${{ github.run_number }}
