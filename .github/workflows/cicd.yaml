@@ -7,6 +7,8 @@ on:
 jobs:
   Continuous-Integration:
     runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.build-image.outputs.image }}
 
     steps:
       - name: Checkout
@@ -62,12 +64,10 @@ jobs:
           fi
 
       - name: Pull new image from ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
         run: |
-          echo "Pulling image with build number: ${{ needs.Continuous-Integration.outputs.image }}"
-          docker pull ${{ needs.Continuous-Integration.outputs.image }}
+          IMAGE="${{ needs.Continuous-Integration.outputs.image }}"
+          echo "Pulling image with build number: $IMAGE"
+          docker pull $IMAGE
 
       - name: Run Docker Image to serve users
         run: |
