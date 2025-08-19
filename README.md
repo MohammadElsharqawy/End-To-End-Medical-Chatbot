@@ -1,5 +1,36 @@
-# End-To-End-Medical-Chatbot
 
+## 📌 Project Description
+
+### End-to-End Medical Chatbot with LangChain, Pinecone, and AWS Deployment
+
+##### This project implements a Retrieval-Augmented Generation (RAG) pipeline for a medical chatbot, integrating LangChain, Sentence-BERT embeddings, Pinecone serverless vector DB on AWS, and GPT-4o for natural language generation. The chatbot is served via a Flask web application, containerised with Docker, and deployed on AWS EC2 using GitHub Actions CI/CD.
+
+### 🔑 Key Features
+
+   - LangChain RAG Pipeline: Combines Sentence-BERT Hugging Face embeddings with Pinecone vector store and GPT-4o for accurate, context-aware responses.
+
+   - Flask Web Application: Simple frontend for querying the chatbot and retrieving answers.
+
+   - Pinecone Serverless on AWS: Stores and retrieves embeddings for scalable, low-latency search.
+
+   - Dockerised Deployment: Application packaged as a Docker image.
+
+   - CI/CD with GitHub Actions: Automated workflow to build, push Docker images to Amazon ECR, and deploy to EC2 via self-hosted runners.
+
+   - Secure Configuration: API keys and AWS credentials stored in GitHub Secrets, with environment variables managed via .env.
+
+
+ ###  Deployment Workflow
+
+1- Build and containerise the Flask + LangChain application with Docker.
+
+2- Push image to Amazon Elastic Container Registry (ECR).
+
+3- Launch and configure EC2 instance with Docker.
+
+4- Pull latest image from ECR and run containerised chatbot.
+
+5- CI/CD pipeline ensures automatic redeployment on each push to main
 # How to run?
 ### STEPS
 
@@ -87,7 +118,7 @@ Policy:
 ### 3. Create ECR repo to store/save docker image
 
 ```bash
-- Save the URI: 315865595366.dkr.ecr.us-east-1.amazonaws.com/medicalbot
+- Save the URI: 597088048829.dkr.ecr.eu-north-1.amazonaws.com/medicalbot
 ```
 
 ### 4. Create EC2 machine (Ubuntu)
